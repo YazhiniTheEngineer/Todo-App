@@ -1,0 +1,91 @@
+<div class="row m-2 bg-color"  *ngFor ="let name of names" >
+    <div class="col">
+      {{name}}
+    </div>
+    <div class="col text-center">
+        <button type="button" class="btn btn-info" (click)="openAllTasksModal(name)">All tasks</button>
+    </div>
+    <div class="col text-center">
+        <button type="button" class="btn btn-danger" (click)="openPendingModal(name)">Pending</button>
+    </div>
+    <div class="col text-center">
+        <button type="button" class="btn btn-success" (click)="openCompletedModal(name)">Completed</button>
+    </div>    
+</div>
+
+
+<!-- All task -->
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">All Tasks</h4>
+                <button type="button"  class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <ul *ngFor="let task of tasks">
+                    <li>{{task.description}}</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="onCloseHandled()" >Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pending Tasks -->
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display1}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Pending Tasks</h4>
+                <button type="button"  class="close" aria-label="Close" (click)="onCloseHandled1()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col" *ngIf="pendingTasks.length==0">No Pending Tasks</div>
+                <div class="row pending p-1" *ngFor="let task of pendingTasks">
+                    
+                    <div class="col-sm-6">
+                        {{task.description}}
+                      </div>
+                      <div class="col-sm-3 text-center">
+                          <button type="button" class="btn btn-info" (click)="markCompleteTodo(task)" >Completed</button>
+                      </div>
+                      <div class="col-sm-3 text-center">
+                          <button type="button" class="btn btn-danger" (click)="deleteById(task)">Delete</button>
+                      </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="onCloseHandled1()" >Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Completed task -->
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display2}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Completed Tasks</h4>
+                <button type="button"  class="close" aria-label="Close" (click)="onCloseHandled2()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col" *ngIf="completedTask.length==0">No Completed Tasks</div>
+                <div class="row pending p-1" *ngFor="let task of completedTask" >
+                    <div class="col-sm-7">
+                        {{task.description}}
+                      </div>
+                      <div class="col-sm-3 text-center">
+                          <button type="button" class="btn btn-danger" (click)="deleteById(task)">Delete</button>
+                      </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="onCloseHandled2()" >Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<form class="m-3" (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group row">
+      <label for="name" class="col-sm-2 col-form-label"><b>Name</b></label>
+      <div class="col-sm-10">
+        <input type="text" 
+        class="form-control" 
+        id="name"
+        ngModel name="name"
+        placeholder="Enter name..." 
+        #name="ngModel"
+        required>
+        <span class="help-block" *ngIf="!name.valid && name.touched">Please enter a valid name</span>
+      </div>
+    </div>
+    <div class="form-group row">
+        <label for="task_description"  class="col-sm-2 col-form-label"><b>Task</b></label>
+        <div class="col-sm-10">
+            <textarea class="form-control" 
+            id="task_description" 
+            rows="3" 
+            ngModel name="task_description"
+            placeholder="Enter Task Description..." 
+            #desc="ngModel"
+            required></textarea>
+            <span class="help-block" *ngIf="!desc.valid && desc.touched">Please enter a valid task</span>
+        </div
+    </div>
+    <div class="form-group row">
+        <label for="target_date" class="col-sm-2 col-form-label"><b>Target Date</b></label>
+        <div class="col-sm-10">
+          <input type="date" 
+          class="form-control" 
+          [min]="presentDate"
+          id="target_date" 
+          ngModel name="target_date"
+          #date="ngModel"
+          required>  
+          <span class="help-block" *ngIf="!date.valid && date.touched">Please enter a valid date</span>
+        </div>
+      </div>
+          <div class="form-group row" >
+            <label for="target_date" class="col-sm-3 col-form-label"><b>Level of Task</b></label>
+            <div class="col-sm-9">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" ngModel name="levels" #radio="ngModel" value="Easy" checked required>
+                <label class="form-check-label" for="easy">
+                  Easy
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" ngModel name="levels" #radio="ngModel" value="Intermediate" required>
+                <label class="form-check-label" for="intermediate">
+                  Intermediate
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" ngModel name="levels" #radio="ngModel" value="Hard" required>
+                <label class="form-check-label" for="hard">
+                  Hard
+                </label>
+              </div>
+              <span class="help-block" *ngIf="!date.valid && date.touched">Please enter a valid date</span>
+            </div>
+          </div>
+      <div class="form-group row">
+        <div class="col text-right">
+          <button 
+          type="submit" 
+          class="btn btn-dark"
+          [disabled]="!f.valid"
+          >Submit</button>
+        </div>
+      </div>
+  </form>
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Task</th>
+        <th scope="col">Date</th>
+        <th scope="col">Level Of Task</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let todo of todos">
+        <td>{{todo.name}}</td>
+        <td>{{todo.description}}</td>
+        <td>{{todo.date  | date:"dd-MM-yyyy"}}</td>
+        <td>{{todo.levelsOfTodo}}</td>
+      </tr>
+    </tbody>
+</table>
+  
